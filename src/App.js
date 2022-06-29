@@ -6,6 +6,7 @@ import SignIn from './Pages/SignIn';
 import SignUp from './Pages/SignUp';
 import Home from './Pages/Home'
 import MyDrawer from './Components/MyDrawer';
+import SingleProduct from './Pages/SingleProduct';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='home' element={<Home />} />
           <Route path='signin' element={<SignIn />} />
           <Route path='signup' element={<SignUp />} />
+          <Route path='singleProducts' element={<SingleProduct />} />
         </Routes>
       </MyDrawer>
       <Footer />

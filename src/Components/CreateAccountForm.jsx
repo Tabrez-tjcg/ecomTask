@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import Api from '../Api/Api'
 
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
 
 const CreateAccountForm = () => {
