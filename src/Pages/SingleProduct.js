@@ -6,12 +6,13 @@ import { Box, Typography } from '@material-ui/core'
 import StarOutlineIcon from '@material-ui/icons/StarOutline';
 import StarIcon from '@material-ui/icons/Star';
 import CartForSingleProcuct from '../Components/CartForSingleProcuct'
+import ReviewsPost from '../Components/ReviewsPost'
 
 const SingleProduct = () => {
     const dispatch = useDispatch()
     const ThisProduct = useSelector(state => state.products.productCL)
 
-    console.log("The product",ThisProduct);
+    console.log("The product will render in single product page",ThisProduct);
     const ratingStar = [1,2,3,4,5];
   return (
     <div>
@@ -24,13 +25,13 @@ const SingleProduct = () => {
         }}> 
 
             <Box>
-                <img src={ThisProduct[0].image} 
+                <img src={ThisProduct.image} 
                 style={{ maxHeight: '75vh'}}
                 /> 
             </Box>
 
             <Box> 
-                <Typography component="h2" style={{color: '#1f78ff'}}>{ThisProduct[0].name}</Typography>
+                <Typography component="h2" style={{color: '#1f78ff'}}>{ThisProduct.name}</Typography>
                 <Box aria-label="ratings" style={{color: '#ffc110'}}>
                 {
                     ratingStar.map(star => {
@@ -43,10 +44,10 @@ const SingleProduct = () => {
                     })
                 }
                 </Box>
-                <Typography component="h6" style={{fontSize: 15}}>({ThisProduct[0].numReviews} Customer reviews)</Typography>
-                <Typography component="h6" style={{fontSize: 16}}><b>Price :</b> <span style={{fontWeight: 600, color: '#d15700'}}>${ThisProduct[0].price}</span></Typography>
-                <Typography component="h6" style={{fontSize: 16}}><b>Description : </b>{ThisProduct[0].description}</Typography>
-                <Typography component="h6" style={{fontSize: 14}}>{ThisProduct[0].comment}</Typography>
+                <Typography component="h6" style={{fontSize: 15}}>({ThisProduct.numReviews} Customer reviews)</Typography>
+                <Typography component="h6" style={{fontSize: 16}}><b>Price :</b> <span style={{fontWeight: 600, color: '#d15700'}}>${ThisProduct.price}</span></Typography>
+                <Typography component="h6" style={{fontSize: 16}}><b>Description : </b>{ThisProduct.description}</Typography>
+                <Typography component="h6" style={{fontSize: 14}}>{ThisProduct.comment}</Typography>
             </Box>
 
             <Box style={{minWidth: '30%'}}>
@@ -56,6 +57,8 @@ const SingleProduct = () => {
             </Box>
         
         </Box>
+
+        <ReviewsPost />
 
         
     </div>

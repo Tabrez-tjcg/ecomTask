@@ -12,7 +12,7 @@ import { Box } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { setProducts }  from '../Store/productSlice'
+import { ShowProduct }  from '../Store/productSlice'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductCard(props) {
 
-  const [chek, setChek] = useState(props)
+
 
   const dispatch = useDispatch(); 
   const classes = useStyles();
@@ -49,7 +49,7 @@ export default function ProductCard(props) {
   const ratingStar = [1,2,3,4,5];
 
   const showThisProduct = () =>{
-    dispatch(setProducts(chek));
+    dispatch(ShowProduct(props));
     navigate('/singleProducts')
   }
 

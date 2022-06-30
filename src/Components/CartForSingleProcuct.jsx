@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,7 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, InputLabel } from '@material-ui/core';
 
-import addToCart from '../Store/productSlice';
+
+import { addToCart } from '../Store/cartSlice';
+import { ContactlessOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root: {
@@ -40,25 +42,40 @@ export default function CartForSingleProcuct() {
     dispatch(addToCart(ThisProduct))
   }
 
+
+  const [qty, setQty] = useState(1);
+  const [total, setTotal] = useState(ThisProduct.price);
+
+  const onChangeQtyHandler = (e) => {
+    if(e.target.value < 1) {
+      e.target.value = 1;
+    }
+    setQty(e.target.value);
+    setTotal(ThisProduct.price * qty);
+    console.log("The Qty: ", qty)
+    console.log("Total: ", total)
+  }
+  const AdditionalData =  {quantity : qty, total : total }
+
+  // const AddToCartDetials = {};
+
+
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
 
-      <Typography component="h6" style={{fontSize: 16}}><b>Price :</b> <span style={{fontWeight: 600, color: '#d15700'}}>${ThisProduct[0].price}</span></Typography>
-      <Typography component="h6" style={{fontSize: 15}}>State : {ThisProduct[0].numReviews}</Typography><Typography component="h6" style={{fontSize: 16}}>({ThisProduct[0].numReviews} Customer reviews)</Typography>
+      <Typography component="h6" style={{fontSize: 16}}><b>Price :</b> <span style={{fontWeight: 600, color: '#d15700'}}>${total}</span></Typography>
+      <Typography component="h6" style={{fontSize: 15}}>State : In Stock</Typography>
 
       <FormControl variant="outlined" className={classes.formControl} >
         <label className="form-group flex-column">Qty: 
-            <input type="number" className="form-control" style={{maxWidth: '80px'}}/>
+            <input type="number" value={qty} className="form-control" style={{maxWidth: '80px'}} onChange={(e) => onChangeQtyHandler(e)}/>
         </label>       
       </FormControl>
-
-
-
-
+      
       </CardContent>
       <CardActions>
-        <Button size="large" fullWidth="true" style={{backgroundColor: '#e0a800'}} onClick={() => addToCartHandler(ThisProduct)}>Add to Cart</Button>
+        <Button size="large" fullWidth="true" style={{backgroundColor: '#e0a800'}} onClick={() => addToCartHandler({...ThisProduct, AdditionalData})}>Add to Cart</Button>
       </CardActions>
     </Card>
   );

@@ -16,6 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -89,6 +90,10 @@ export default function MyDrawer({children}) {
     setOpen(false);
   };
 
+  const CartProduct = useSelector(state => state.cart.cart);
+
+  const userAuthorised = true;
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -125,14 +130,41 @@ export default function MyDrawer({children}) {
             </Link>
           </Typography>
           <Box>
+            {userAuthorised ? 
             <Typography className={classes.root}>
-              <Link to="/signin" style={{padding: 10, margin: 5, color: '#fff', textDecoration: 'none'}}>
-                Sign In
-              </Link>
-              <Link to="/cart"  style={{padding: 10, margin: 5, color: '#fff', textDecoration: 'none'}}>
+              <Link to="/cart" style={{fontWeight: 600, padding: 10, margin: 5, color: '#fff', textDecoration: 'none'}}>
                 Cart
               </Link>
-            </Typography>
+              <span className="numberOfProducts" style={{
+                  backgroundColor: 'red',
+                  color: 'rgb(255, 255, 255)',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  borderRadius: '50%',
+                  width: '20px',
+                  height: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transform: 'translate(-22px, 8px)',
+                  zIndex: '-1'
+              }}>{CartProduct.length}</span>
+              <Link to="/signin" style={{fontWeight: 600, padding: 10, margin: 5, color: '#fff', textDecoration: 'none'}}>
+                Bassir
+              </Link>
+              <Link to="/cart"  style={{fontWeight: 600, padding: 10, margin: 5, color: '#fff', textDecoration: 'none'}}>
+                Admin
+              </Link>
+            </Typography> :
+            
+            <Typography className={classes.root}>
+              <Link to="/signin" style={{fontWeight: 600, padding: 10, margin: 5, color: '#fff', textDecoration: 'none'}}>
+                Sign In
+              </Link>
+              <Link to="/cart"  style={{fontWeight: 600, padding: 10, margin: 5, color: '#fff', textDecoration: 'none'}}>
+                Cart
+              </Link>
+            </Typography> }
           </Box>
           </Box>
         </Toolbar>

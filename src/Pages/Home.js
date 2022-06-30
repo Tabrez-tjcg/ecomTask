@@ -4,17 +4,23 @@ import ProductCard from '../Components/ProductCard'
 import Api from '../Api/Api'
 import SearchBox from '../Components/SearchBox';
 import SortingProducts from '../Components/SortingProducts';
+import { useDispatch } from 'react-redux';
+import { storeAllProduct } from '../Store/productSlice'
 
 
 const Home = () => {
 
     const [prods, setProds] = useState([]);
+    const dispatch = useDispatch();
+
+
     // const { prodctsState } = useSelector(state => state.products);
     const fetchProducts = async () => {
         const res = await Api.get('/products');
         const ProducstData = res.data;
         console.log(res.data)
         setProds(ProducstData)
+        dispatch(storeAllProduct(res.data))
     }
 
     useEffect(() => {
@@ -34,6 +40,7 @@ const Home = () => {
                     {prods.map(product => {
                         return <ProductCard 
                         key={product._id}
+                        id={product._id}
                         name={product.name} 
                         brand={product.brand}
                         image={product.image} 
